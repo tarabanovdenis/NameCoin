@@ -119,7 +119,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // copy to clipboard
     document.querySelectorAll(".js-copy-to-clipboard__btn").forEach(button => {
         button.addEventListener("click", function () {
-            const codearea = this.closest(".panel").querySelector(".js-copy-to-clipboard__code");
+            const codearea = this.closest(".js-copy-container").querySelector(".js-copy-to-clipboard__code");
             codearea.select();
             document.execCommand("copy");
             let value= this.innerHTML;
@@ -131,4 +131,5 @@ document.addEventListener("DOMContentLoaded", function () {
             }, 1500);
         });
     });
+
 });
