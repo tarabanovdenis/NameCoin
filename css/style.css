@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
+@import url('variables.css');
 
 /* reset (begin) */
 a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,div,dl,dt,em,embed,fieldset,figcaption,figure,footer,form,h1,h2,h3,h4,h5,h6,header,html,i,iframe,img,ins,kbd,label,legend,li,mark,menu,nav,object,ol,output,p,pre,q,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video{margin:0;padding:0;border:0;font:inherit;font-size:100%;vertical-align:baseline}a,a img{border:none}html{line-height:1}ol,ul{list-style:none}table{border-collapse:collapse;border-spacing:0}caption,td,th{text-align:left;font-weight:400;vertical-align:middle}blockquote,q{quotes:none}blockquote:after,blockquote:before,q:after,q:before{content:"";content:none}a{text-decoration:none;outline:0;cursor:pointer}article,aside,details,figcaption,figure,footer,header,main,menu,nav,section,summary{display:block}button::-moz-focus-inner,input[type=button]::-moz-focus-inner,input[type=reset]::-moz-focus-inner,input[type=submit]::-moz-focus-inner{border:none;padding:0}
@@ -18,59 +19,6 @@ a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,c
 /* animations (end) */
 
 
-/* variables (begin) */
-:root {
-    --FontFamilyMain: "Open Sans", serif;
-    --FontSizeBase: 12px;
-    --FontSizeBig: 14px;
-    --FontSizeSmall: 10px;
-
-    --radius: 7px;
-
-    /* colors (begin) */
-    --clrBorder: #E9E9E9;
-    --clrBG: #F1F1F3;
-    --clrBGMuted : #C8C8C8;
-    --clrFill: #fff;
-    --clrTxt: #0B0B0B;
-    --clrTxtButton: var(--clrFill);
-    --clrBtn: var(--clrTxt);
-    --clrBtnMuted: var(--clrBorder);
-    --clrSpecialHighlight: #D9D3C9;
-    --clrSpecialHighlightBorder: #BFBAB1;
-
-    --clrDisabled: #8F8F8F;
-
-    --clrSuccess: #4E831B;
-    --clrDanger: #EF4831;
-    /* colors (end) */
-
-    /* coin styles (begin) */
-    --coin_color_1: #F2C3C1;
-    --coin_color_2: #A6A5A5;
-    --coin_color_3: #B48BED;
-    --coin_color_4: #F9C632;
-    --coin_color_5: #40651A;
-    --coin_color_6: #DF4457;
-    /* coin styles (end) */
-}
-
-.dark-theme {
-    --clrBorder: #8C40C6;
-    --clrBG: #0B0B0B;
-    --clrBGMuted : #000;
-    --clrFill: var(--clrBG);
-    --clrTxt: #8C40C6;
-    --clrTxtButton: #fff;
-    --clrBtn: var(--clrTxt);
-    --clrBtnMuted: #271237;
-    --clrSpecialHighlight: #270d3c;
-    --clrSpecialHighlightBorder: #371454;
-    --clrDisabled: #604676;
-}
-/* variables (end) */
-
-
 /* global (begin)*/
 html {
     -webkit-font-smoothing: antialiased;
@@ -79,6 +27,8 @@ html {
     -webkit-text-size-adjust: 100%;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+
+    overflow: hidden;
 
     height: 100%;
 }
@@ -94,6 +44,8 @@ body {
     font-style: normal;
     font-optical-sizing: auto;
 
+    overflow: hidden;
+
     height: 100%;
 
     text-align: left;
@@ -103,36 +55,44 @@ body {
     color: var(--clrTxt);
 }
 
-body.m-no-bg {
-    background: var(--clrFill);
-}
-
 .page {
     position: relative;
 
+    overflow: auto;
     z-index: 1;
 
+    height: 100%;
+    box-sizing: border-box;
+}
+
+.menu + .page {
+    height: calc(100% - 70px);
+}
+
+.wrap {
     padding: 6px 12px 76px 12px;
     max-width: 600px;
     margin: auto;
 }
 
-.page_center {
+.popup-container .wrap {
+    position: relative;
+
     display: flex;
-    flex-direction: column;
+    z-index: 2;
+    align-self: center;
+    flex: 1 1 auto;
+    flex-flow: column;
     justify-content: center;
 
-    min-height: 100%;
-    box-sizing: border-box;
+    padding-bottom: 12px;
+    margin: 0;
+    min-height: min-content;
 }
 
-.page_center_with_header {
-    display: flex;
-    flex-direction: column;
-    justify-content: stretch;
-
-    min-height: 100%;
-    box-sizing: border-box;
+.popup-container.m-has-header .wrap {
+    justify-content: space-between;
+    align-self: stretch;
 }
 
 a,
@@ -165,6 +125,7 @@ svg path {fill: var(--clrTxt)}
 .button.m-danger svg path,
 .txt.m-danger svg path {fill: var(--clrDanger)}
 .button.m-disabled svg path {fill: var(--clrDisabled)}
+.panel__tit .coin-logo path {fill: var(--clrFill)}
 
 .menu svg {
     display: block;
@@ -195,6 +156,7 @@ input[readonly] {
 }
 
 .box-header:first-child {padding-top: 0}
+.popup-container .box-header:first-child {flex: 1 1 auto}
 /* box-header (end) */
 
 
@@ -305,7 +267,7 @@ input[readonly] {
     display: flex;
     flex-wrap: nowrap;
     justify-content: center;
-    z-index: 2;
+    z-index: 11;
 
     width: 100%;
 
@@ -448,6 +410,11 @@ h3.m-no-indent {margin-bottom: 4px}
     padding-bottom: 13px;
 
     list-style: disc;
+}
+
+.m-align-center .txt ul {
+    padding-left: 0;
+    list-style-position: inside;
 }
 /* txt (end) */
 
@@ -707,7 +674,7 @@ h3.m-no-indent {margin-bottom: 4px}
     right: 0;
     left: 0;
 
-    margin-top: -1.3vmax;
+    margin-top: -1.1vmax;
 
     line-height: 1;
 }
@@ -1082,6 +1049,13 @@ h3.m-no-indent {margin-bottom: 4px}
     outline: none;
 }
 
+.form__node[type="number"]::-webkit-inner-spin-button,
+.form__node[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+.form__node[type="number"] {-moz-appearance: textfield;}
+
 .form__node.m-strong {font-weight: 700}
 
 .m-error .form__node,
@@ -1283,16 +1257,6 @@ textarea.form__node {
 /* hint (end) */
 
 
-/* footer (begin) */
-.footer {
-    padding-top: 20px;
-    padding-bottom: 40px;
-
-    text-align: center;
-}
-/* final-control (end) */
-
-
 /* page-loading (begin) */
 .page-loading {
     position: fixed;
@@ -1302,7 +1266,7 @@ textarea.form__node {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 2;
+    z-index: 11;
 
     width: 100%;
     height: 100%;
@@ -1381,3 +1345,71 @@ textarea.form__node {
     border-radius: inherit;
 }
 /* progress (end) */
+
+
+/* final-button (begin) */
+.final-button {
+    padding: 20px 0;
+
+    text-align: center;
+}
+
+.popup-container .final-button {flex: 1 1 auto}
+/* final-button (end) */
+
+
+/* popup (begin) */
+.popup-container {
+    position: fixed;
+    top: 30px;
+    left: 0;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: stretch;
+    align-content: stretch;
+    /*flex-wrap: nowrap;*/
+    flex-wrap: wrap;
+
+    overflow: scroll;
+    opacity: 0;
+    z-index: 9;
+
+    width: 100%;
+    height: 100%;
+
+    pointer-events: none;
+
+    transition: all 0.4s ease;
+}
+
+.menu + .page + .popup-container {
+    height: calc(100% - 70px);
+}
+
+.popup-container.js-active {
+    top: 0;
+
+    opacity: 1;
+
+    pointer-events: auto;
+}
+
+.popup__overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    z-index: 1;
+
+    width: 100%;
+    height: 100%;
+
+    background: var(--clrBG);
+}
+
+.popup__overlay.m-no-bg {
+    background: var(--clrFill);
+}
+/* popup (end) */
